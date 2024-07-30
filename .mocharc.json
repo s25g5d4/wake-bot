@@ -1,0 +1,7 @@
+{
+  "extensions": ["ts"],
+  "spec": ["test/**"],
+  "recursive": true,
+  "import": ["tsx"],
+  "require": ["tsconfig-paths/register"]
+}

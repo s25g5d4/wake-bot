@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "outDir": "./build",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "target": "es2021",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2021"],
+    "types": ["node"],
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules"]
+}

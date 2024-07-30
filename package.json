@@ -1,0 +1,53 @@
+{
+  "name": "wake-bot",
+  "version": "0.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "TS_NODE_PROJECT=\"./test/tsconfig.json\" LOG_LEVEL=\"error\" mocha",
+    "lint": "npm run lint:format && npm run lint:code",
+    "lint:format": "prettier -c .",
+    "lint:code": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier -w .",
+    "build": "tsc && resolve-tspaths",
+    "clean": "rm -rf ./build/*",
+    "start": "node ./build/index.js",
+    "prepare": "husky"
+  },
+  "author": "s25g5d4 <s25g5d4@gmail.com> (https://github.com/s25g5d4/)",
+  "license": "MIT",
+  "dependencies": {
+    "bufferutil": "^4.0.6",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "lodash": "^4.17.21",
+    "pino": "^9.2.0",
+    "utf-8-validate": "^6.0.4",
+    "zlib-sync": "^0.1.7"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.16",
+    "@types/lodash": "^4.14.178",
+    "@types/mocha": "^10.0.6",
+    "@types/sinon": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "chai": "^5.1.1",
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "husky": "^9.0.11",
+    "mocha": "^10.4.0",
+    "prettier": "^3.3.2",
+    "resolve-tspaths": "^0.2.4",
+    "sinon": "^18.0.0",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.15.5",
+    "typescript": "^5.4.5"
+  }
+}
