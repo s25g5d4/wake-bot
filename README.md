@@ -26,19 +26,7 @@
 3. Setup environment variables. See Environment Variables section below for
    more details.
 
-4. Deploy command:
-
-   - For production use, we recommand deploying global commands:
-     ```
-     node ./build/scripts/deploy-global-commands.js
-     ```
-   - For development use, you can deploy guild commands only. You have to setup
-     `DISCORD_GUILD_ID` variable to deploy the commands.
-     ```
-     node ./build/scripts/deploy-commands.js
-     ```
-
-5. Start the app:
+4. Start the app:
    ```
    npm run start
    ```
