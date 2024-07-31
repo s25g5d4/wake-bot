@@ -8,7 +8,7 @@ import { config } from "src/config";
 
 export class WakeReact extends EventEmitter {
   private client: Client;
-  private keywords = parseCSV(config.keywords);
+  private containsKeywords = keywordMatcher(config.keywords);
 
   constructor(private logger: Logger) {
     super();
@@ -41,13 +41,14 @@ export class WakeReact extends EventEmitter {
   }
 
   private filter = (msg: Message): boolean => {
-    return this.keywords.some((keyword) => msg.content.includes(keyword));
+    return this.containsKeywords(msg.content);
   };
 
   private async wakeThatGomi(channel: TextBasedChannel, msg: Message) {
     const l = this.logger.child({
       channel: logChannel(channel),
       repliedUser: logUser(msg.author),
+      content: msg.content,
     });
 
     try {
@@ -65,4 +66,30 @@ export class WakeReact extends EventEmitter {
 
 function parseCSV(row: string): string[] {
   return row.split(",");
+}
+
+function keywordMatcher(row: string): (msg: string) => boolean {
+  const keywords = parseCSV(row);
+  const substrings: string[] = [];
+  const patterns: RegExp[] = [];
+  for (const k of keywords) {
+    const matchPattern = k.match(/^\/(.+)\/([a-z]*)$/);
+    if (!isNil(matchPattern)) {
+      try {
+        const regex = new RegExp(matchPattern[1], matchPattern[2]);
+        patterns.push(regex);
+      } catch (err) {
+        throw new Error(`invalid keyword ${k}: ${err}`);
+      }
+      continue;
+    }
+    substrings.push(k);
+  }
+
+  return (msg: string): boolean => {
+    return (
+      substrings.some((s) => msg.includes(s)) ||
+      patterns.some((p) => p.test(msg))
+    );
+  };
 }
