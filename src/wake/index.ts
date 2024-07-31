@@ -2,6 +2,7 @@ import { EventEmitter } from "node:events";
 import { Client, Message, TextBasedChannel } from "discord.js";
 import { isNil } from "lodash";
 import { Logger } from "pino";
+import { replace } from "out-of-character";
 import { logChannel } from "src/utils/log-channel";
 import { logUser } from "src/utils/log-user";
 import { config } from "src/config";
@@ -41,7 +42,8 @@ export class WakeReact extends EventEmitter {
   }
 
   private filter = (msg: Message): boolean => {
-    return this.containsKeywords(msg.content);
+    const content = replace(msg.content);
+    return this.containsKeywords(content);
   };
 
   private async wakeThatGomi(channel: TextBasedChannel, msg: Message) {

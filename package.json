@@ -22,6 +22,7 @@
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
+    "out-of-character": "^1.2.2",
     "pino": "^9.2.0",
     "utf-8-validate": "^6.0.4",
     "zlib-sync": "^0.1.7"
