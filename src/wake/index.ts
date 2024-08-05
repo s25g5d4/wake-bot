@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:events";
 import { Client, Message, TextBasedChannel } from "discord.js";
-import { isNil } from "lodash";
+import { isNil, sample } from "lodash";
 import { Logger } from "pino";
 import { replace } from "out-of-character";
 import { logChannel } from "src/utils/log-channel";
@@ -10,6 +10,7 @@ import { config } from "src/config";
 export class WakeReact extends EventEmitter {
   private client: Client;
   private containsKeywords = keywordMatcher(config.keywords);
+  private replyContents = contentSplitter(config.replyContent);
 
   constructor(private logger: Logger) {
     super();
@@ -55,7 +56,7 @@ export class WakeReact extends EventEmitter {
 
     try {
       await msg.reply({
-        content: config.replyContent,
+        content: sample(this.replyContents),
         allowedMentions: { repliedUser: false },
       });
     } catch (err) {
@@ -94,4 +95,8 @@ function keywordMatcher(row: string): (msg: string) => boolean {
       patterns.some((p) => p.test(msg))
     );
   };
+}
+
+function contentSplitter(content: string): string[] {
+  return content.split(/(?<!\\)\|/g).map((c) => c.replace(/\\\|/g, "|"));
 }
