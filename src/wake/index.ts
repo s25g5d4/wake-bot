@@ -67,7 +67,7 @@ export class WakeReact extends EventEmitter {
 }
 
 function parseCSV(row: string): string[] {
-  return row.split(",");
+  return row.split(/(?<!\\),/g).map((r) => r.replace(/\\,/g, ","));
 }
 
 function keywordMatcher(row: string): (msg: string) => boolean {
